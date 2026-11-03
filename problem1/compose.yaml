@@ -1,0 +1,14 @@
+services:
+  simulator:
+    build: docker
+    image: simulator
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    devices:
+      - /dev/kvm
+    environment:
+      HOME: /submission/problem1/third_party/home
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ..:/submission
+    working_dir: /submission/problem1
+    entrypoint: ["python3", "src/main.py"]

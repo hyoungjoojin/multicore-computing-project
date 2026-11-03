@@ -1,0 +1,43 @@
+execution:
+  parallel_runs: 10
+  run_timeout_hours: 12
+  boot_stall_minutes: 10
+  boot_retries: 2
+
+hardware:
+  clock_ghz: 3.0
+  l1i_size_kb: 32
+  l1d_size_kb: 32
+  l2_size_kb_per_core: 512
+  memory_size: 3GiB
+  cache_load_ports: 2
+  cache_store_ports: 1
+
+mcpat:
+  technology_nm: 22
+  xml_template: assets/mcpat/xeon.xml
+
+hotspot:
+  package_config: assets/hotspot/hotspot.config
+  grid_size: 64
+
+electrothermal:
+  tolerance_c: 0.1
+  max_iterations: 20
+
+variants:
+  baseline:
+    gem5_patches: []
+    o3_params: {}
+
+experiments:
+  core_sweep:
+    variants: [baseline]
+    core_counts: [1, 4, 8]
+    widths: [4]
+    speedup_baseline: {cores: 1}
+  width_sweep:
+    variants: [baseline]
+    core_counts: [4]
+    widths: [2, 4, 8]
+    speedup_baseline: {width: 2}
